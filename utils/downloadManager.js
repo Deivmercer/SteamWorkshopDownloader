@@ -4,6 +4,7 @@ const { JSDOM } = require("jsdom");
 const { log } = require("./logger");
 
 const dir = process.env.OUTPUT_FOLDER;
+const target = process.env.OUTPUT_XML_NAME;
 
 module.exports = {
 
@@ -83,7 +84,7 @@ module.exports = {
             process.chdir(dir);
         }
 
-        return await JSDOM.fromFile("bruh.txt", {contentType: "text/xml"})
+        return await JSDOM.fromFile(target, {contentType: "text/xml"})
             .then(dom => {
 
                 log.debug("Document parsed");
@@ -94,7 +95,7 @@ module.exports = {
                 xmlDoc.documentElement.appendChild(newChildNode);
 
                 // Note: XML header is removed
-                return fs.writeFile("map_list.txt", xmlDoc.documentElement.outerHTML, err => {
+                return fs.writeFile(target, xmlDoc.documentElement.outerHTML, err => {
 
                     if (err)
                         return err;
