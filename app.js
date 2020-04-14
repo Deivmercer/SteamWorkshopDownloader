@@ -1,7 +1,9 @@
 'use strict';
 
 require("dotenv").config();
+const https = require("https");
 const cors = require("cors");
+const fs = require("fs");
 const express = require("express");
 const downloadManager = require("./utils/downloadManager");
 const { log } = require("./utils/logger");
@@ -12,11 +14,6 @@ app.use(cors());
 const portNumber = process.env.PORT || 3000;
 
 downloadManager.createDir(process.env.OUTPUT_FOLDER);
-
-app.listen(portNumber, function () {
-
-    log.info("Express server listening on port: " + portNumber);
-});
 
 app.use("/swdownloader/:id", function (req, res) {
 
@@ -42,3 +39,19 @@ app.use(function(req, res) {
     return res.status(404).send("Not found");
 });
 
+function serverStart(){
+    log.info("Express server listening on port: " + portNumber);
+}
+
+if(process.env.TLS_KEY_PATH && process.env.TLS_CERT_PATH &&
+    fs.existsSync(process.env.TLS_KEY_PATH) &&
+    fs.existsSync(process.env.TLS_CERT_PATH)){
+    let options = {
+        key: fs.readFileSync(process.env.TLS_KEY_PATH),
+        cert: fs.readFileSync(process.env.TLS_CERT_PATH)
+    }
+
+    https.createServer(options, app).listen(portNumber, serverStart);
+}else{
+    app.listen(portNumber, serverStart);
+}
