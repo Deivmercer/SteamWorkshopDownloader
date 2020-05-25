@@ -1,0 +1,11 @@
+<div ng-controller="downloadViewCtrl">
+	<p ng-model="username">Hi, {{ username }}!</p>
+	<p>
+		Type here the ID of the workshop content you want to download and click the button:<br>
+	<form ng-submit="download()">
+		<input type="text" placeholder="ID" ng-model="contentId" ng-disabled="disable">
+		<input type="submit" value="Download" ng-disabled="disable"></button>
+	</form>
+	</p>
+	<p ng-model="result">{{ result }}</p>
+</div>
