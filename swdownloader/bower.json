@@ -1,0 +1,22 @@
+{
+  "name": "swdownloader",
+  "homepage": "https://github.com/Deivmercer/SteamWorkshopDownloader",
+  "authors": [
+    "Deivmercer <davemercerdave@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.7.9",
+    "angular-route": "^1.7.9"
+  }
+}
