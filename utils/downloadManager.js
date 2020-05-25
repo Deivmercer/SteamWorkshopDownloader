@@ -40,7 +40,6 @@ module.exports = {
         return new Promise(function (resolve, reject) {
 
             request.post(process.env.REQUEST_URL, headers, function (err, res, data) {
-
                 if (err)
                     reject(err);
                 else if (!data || !data.response || !data.response.publishedfiledetails)
@@ -63,7 +62,6 @@ module.exports = {
         let self = this;
 
         return new Promise(function (resolve, reject) {
-
             request.get(fileDetails.file_url)
                 .on("error", err => reject(err))
                 .pipe(fileStream);
@@ -72,7 +70,7 @@ module.exports = {
                     if (err)
                         reject(err);
                     else
-                        resolve();
+                        resolve(path);
                 });
         });
     },
@@ -86,17 +84,15 @@ module.exports = {
 
         return await JSDOM.fromFile(target, {contentType: "text/xml"})
             .then(dom => {
-
                 log.debug("Document parsed");
                 let xmlDoc = dom.window.document;
                 let newChildNode = xmlDoc.createElement("map");
-                let newTextNode = xmlDoc.createTextNode(path.split("Downloaded/")[1].replace("/", "\\"));
+                let newTextNode = xmlDoc.createTextNode(path.split(/(?:[dD])ownloaded/)[1].replace("/", "\\"));
                 newChildNode.appendChild(newTextNode);
                 xmlDoc.documentElement.appendChild(newChildNode);
 
                 // Note: XML header is removed
                 return fs.writeFile(target, xmlDoc.documentElement.outerHTML, err => {
-
                     if (err)
                         return err;
                     log.info("XML successfully updated");
