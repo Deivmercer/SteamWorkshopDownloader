@@ -6,12 +6,16 @@
   "homepage": "https://github.com/Deivmercer/SteamWorkshopDownloader",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "jsdom": "^16.2.2",
+    "md5": "^2.2.1",
+    "path": "^0.12.7",
     "request": "^2.88.2",
+    "sqlite3": "^4.2.0",
     "winston": "^3.2.1"
   }
 }
