@@ -1,0 +1,21 @@
+<div ng-controller="adminViewCtrl">
+	<table id="table" style="width:25%" >
+		<tr>
+			<th>Username</th>
+			<th>Permission</th>
+		</tr>
+		<tr style="padding-left:10px">
+			<td>
+				<select ng-model="userSelect" ng-options="user as user.username for user in users track by user.id"
+						ng-change="selectUserPermission()" >
+				</select>
+			</td>
+			<td>
+				<select ng-model="permissionSelect" ng-options="option as option.name for option in options track by option.id"
+						ng-init="permissionSelect = options[0]" ng-change="updateUserPermission()">
+				</select>
+			</td>
+		</tr>
+	</table>
+	<p ng-model="result">{{ result }}</p>
+</div>
