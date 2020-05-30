@@ -13,10 +13,11 @@ const DBManager = require("./utils/DBManager");
 
 const app = express();
 app.use(cors());
-app.use(express.static(__dirname + "/swdownloader"));
+app.use(express.static(path.join(__dirname, "/swdownloader")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
+downloadManager.createDir(path.join(__dirname, "/db"));
 const connection = DBManager.createConnection(path.join(__dirname, "/db/swdownloader.db"));
 
 const portNumber = process.env.PORT || 3000;
