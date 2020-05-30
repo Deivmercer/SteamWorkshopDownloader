@@ -6,7 +6,7 @@ angular.module("swdownloader.adminView", ["ngRoute"])
 	.config(["$routeProvider", function($routeProvider) {
 
 		$routeProvider.when("/swdownloader/admin", {
-			templateUrl: "/views/adminView/adminView.html"
+			templateUrl: "views/adminView/adminView.html"
 		});
 	}])
 	.controller("adminViewCtrl", function($scope, $http, userService) {
@@ -21,7 +21,7 @@ angular.module("swdownloader.adminView", ["ngRoute"])
 			{id: 'A', name: "Admin"}
 		]
 
-		$http.get("/swdownloader/listusers")
+		$http.get("swdownloader/listusers")
 			.then(res => {
 				$scope.users = res.data;
 			}).catch(err => console.log(err.data));
@@ -33,7 +33,7 @@ angular.module("swdownloader.adminView", ["ngRoute"])
 
 		$scope.updateUserPermission = function() {
 
-				$http.post("/swdownloader/updateuser", {"userId": $scope.userSelect.id, "permission": $scope.permissionSelect.id})
+				$http.post("swdownloader/updateuser", {"userId": $scope.userSelect.id, "permission": $scope.permissionSelect.id})
 					.then(res => {
 						$scope.result = res.data;
 					}).catch(err => {

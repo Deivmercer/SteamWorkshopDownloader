@@ -4,7 +4,7 @@ angular.module("swdownloader.logInView", ["ngRoute"])
 	.config(["$routeProvider", function($routeProvider) {
 
 		$routeProvider.when("/swdownloader/login", {
-			templateUrl: "/views/logInView/logInView.html",
+			templateUrl: "views/logInView/logInView.html",
 			controller: "logInViewCtrl"
 		});
 	}])
@@ -18,7 +18,7 @@ angular.module("swdownloader.logInView", ["ngRoute"])
 				"username": $scope.username,
 				"password": $scope.password
 			};
-			$http.post("/swdownloader/loginaction", requestBody)
+			$http.post("swdownloader/loginaction", requestBody)
 				.then(res => {
 					userService.id = res.data.id;
 					userService.username = $scope.username;
@@ -37,7 +37,7 @@ angular.module("swdownloader.logInView", ["ngRoute"])
 				"username": $scope.username,
 				"password": $scope.password
 			};
-			$http.post("/swdownloader/signupaction", requestBody)
+			$http.post("swdownloader/signupaction", requestBody)
 				.then(res => {
 					userService.id = res.data.id;
 					userService.username = $scope.username;

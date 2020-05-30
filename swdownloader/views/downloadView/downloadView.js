@@ -4,7 +4,7 @@ angular.module("swdownloader.downloadView", ["ngRoute"])
 	.config(["$routeProvider", function($routeProvider) {
 
 		$routeProvider.when("/swdownloader/download", {
-			templateUrl: "/views/downloadView/downloadView.html",
+			templateUrl: "views/downloadView/downloadView.html",
 			controller: "downloadViewCtrl"
 		});
 	}])
@@ -22,7 +22,7 @@ angular.module("swdownloader.downloadView", ["ngRoute"])
 
 		$scope.download = function() {
 			$scope.result = "";
-			$http.post("/swdownloader/downloadaction", {"userId": userService.id, "contentId": $scope.contentId})
+			$http.post("swdownloader/downloadaction", {"userId": userService.id, "contentId": $scope.contentId})
 				.then(res => $scope.result = res.data)
 				.catch(err => {
 					$scope.result = "Internal server error. Check your browser's console for details.";

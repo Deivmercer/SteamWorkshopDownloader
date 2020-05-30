@@ -10,5 +10,5 @@ angular.module("swdownloader", [
 ]).config(["$locationProvider", "$routeProvider", function($locationProvider, $routeProvider) {
 
 	$locationProvider.hashPrefix("!");
-	$routeProvider.otherwise({redirectTo: "/swdownloader/login"});
+	$routeProvider.otherwise({redirectTo: "swdownloader/login"});
 }]);

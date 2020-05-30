@@ -5,13 +5,19 @@
 	</head>
 	<body>
 		<div ng-view></div>
-		<script src="bower_components/angular/angular.min.js"></script>
-		<script src="bower_components/angular-route/angular-route.min.js"></script>
-		<script src="app.js"></script>
-		<script src="services/userService.js"></script>
-		<script src="views/logInView/logInView.js"></script>
-		<script src="views/homeView/homeView.js"></script>
-		<script src="views/downloadView/downloadView.js"></script>
-		<script src="views/adminView/adminView.js"></script>
+		<script src="./bower_components/angular/angular.min.js"></script>
+		<script src="./bower_components/angular-route/angular-route.min.js"></script>
+		<script src="./app.js"></script>
+		<script src="./services/userService.js"></script>
+		<script src="./views/logInView/logInView.js"></script>
+		<script src="./views/homeView/homeView.js"></script>
+		<script src="./views/downloadView/downloadView.js"></script>
+		<script src="./views/adminView/adminView.js"></script>
+
+		<script>
+			if(!(window.location.pathname).endsWith("/")){
+				window.location.href = window.location.pathname + "/";
+			}
+		</script>
 	</body>
 </html>
