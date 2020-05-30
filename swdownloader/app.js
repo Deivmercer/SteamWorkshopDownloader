@@ -1,6 +1,5 @@
 "use strict";
 
-// Declare app level module which depends on views, and core components
 angular.module("swdownloader", [
 	"ngRoute",
 	"swdownloader.userService",

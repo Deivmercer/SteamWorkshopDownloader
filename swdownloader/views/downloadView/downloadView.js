@@ -26,7 +26,7 @@ angular.module("swdownloader.downloadView", ["ngRoute"])
 				.then(res => $scope.result = res.data)
 				.catch(err => {
 					$scope.result = "Internal server error. Check your browser's console for details.";
-					console.log(err);
+					console.log(err.data);
 				})
 		}
 	});

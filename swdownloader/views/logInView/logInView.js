@@ -27,7 +27,7 @@ angular.module("swdownloader.logInView", ["ngRoute"])
 				}).catch(err => {
 					if (err.status === 401)
 						$scope.info = err.data;
-					console.log(err);
+					console.log(err.data);
 				});
 		};
 
@@ -48,7 +48,7 @@ angular.module("swdownloader.logInView", ["ngRoute"])
 						$scope.info = err.data;
 					else {
 						$scope.info = "Something went wrong.";
-						console.log(err);
+						console.log(err.data);
 					}
 				});
 		}

@@ -24,11 +24,10 @@ angular.module("swdownloader.adminView", ["ngRoute"])
 		$http.get("/swdownloader/listusers")
 			.then(res => {
 				$scope.users = res.data;
-			}).catch(err => console.log(err));
+			}).catch(err => console.log(err.data));
 
 		$scope.selectUserPermission = function() {
 
-			console.log($scope);
 			$scope.permissionSelect.id = $scope.users[$scope.userSelect.id - 1].permission;
 		};
 
@@ -39,7 +38,7 @@ angular.module("swdownloader.adminView", ["ngRoute"])
 						$scope.result = res.data;
 					}).catch(err => {
 						$scope.result = "Internal server error. Check your browser's console for details.";
-						console.log(err);
+						console.log(err.data);
 					})
 		};
 	});
