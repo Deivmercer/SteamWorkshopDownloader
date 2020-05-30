@@ -1,10 +1,11 @@
 const fs = require("fs");
 const request = require("request");
+const path = require("path");
 const { JSDOM } = require("jsdom");
 const { log } = require("./logger");
 
-const dir = process.env.OUTPUT_FOLDER;
-const target = process.env.OUTPUT_XML_NAME;
+const outputFolder = process.env.OUTPUT_FOLDER;
+const outputXmlPath = process.env.OUTPUT_XML_PATH;
 
 module.exports = {
 
@@ -52,47 +53,48 @@ module.exports = {
 
     downloadFile: function (fileDetails) {
 
-        if(process.cwd() !== dir) {
-            log.debug("Moving working directory to " + dir);
-            process.chdir(dir);
+        if(process.cwd() !== outputFolder) {
+            log.debug("Moving working directory to " + outputFolder);
+            process.chdir(outputFolder);
         }
 
-        let path = fileDetails.filename.toLocaleLowerCase();
-        let fileStream = this.createDir(path);
+        let contentPath = fileDetails.filename.toLocaleLowerCase();
+        let fileStream = this.createDir(contentPath);
         let self = this;
 
         return new Promise(function (resolve, reject) {
             request.get(fileDetails.file_url)
                 .on("error", err => reject(err))
                 .pipe(fileStream);
-            self.updateXml(path)
+            self.updateXml(contentPath)
                 .then(err => {
                     if (err)
                         reject(err);
                     else
-                        resolve(path);
+                        resolve(contentPath);
                 });
         });
     },
 
-    updateXml: async function (path) {
+    updateXml: async function (contentPath) {
 
+        let dir = path.dirname(outputXmlPath);
         if(process.cwd() !== dir) {
             log.debug("Moving working directory to " + dir);
             process.chdir(dir);
         }
 
-        return await JSDOM.fromFile(target, {contentType: "text/xml"})
+        return await JSDOM.fromFile(outputXmlPath, {contentType: "text/xml"})
             .then(dom => {
                 log.debug("Document parsed");
                 let xmlDoc = dom.window.document;
                 let newChildNode = xmlDoc.createElement("map");
-                let newTextNode = xmlDoc.createTextNode(path.split("downloaded")[1]);
+                let newTextNode = xmlDoc.createTextNode(contentPath.split("downloaded")[1]);
                 newChildNode.appendChild(newTextNode);
                 xmlDoc.documentElement.appendChild(newChildNode);
 
                 // Note: XML header is removed
-                return fs.writeFile(target, xmlDoc.documentElement.outerHTML, err => {
+                return fs.writeFile(outputXmlPath, xmlDoc.documentElement.outerHTML, err => {
                     if (err)
                         return err;
                     log.info("XML successfully updated");
