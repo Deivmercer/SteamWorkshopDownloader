@@ -57,7 +57,7 @@ module.exports = {
             process.chdir(dir);
         }
 
-        let path = fileDetails.filename;
+        let path = fileDetails.filename.toLocaleLowerCase();
         let fileStream = this.createDir(path);
         let self = this;
 
@@ -87,7 +87,7 @@ module.exports = {
                 log.debug("Document parsed");
                 let xmlDoc = dom.window.document;
                 let newChildNode = xmlDoc.createElement("map");
-                let newTextNode = xmlDoc.createTextNode(path.split(/(?:[dD])ownloaded/)[1].replace("/", "\\"));
+                let newTextNode = xmlDoc.createTextNode(path.split("downloaded")[1]);
                 newChildNode.appendChild(newTextNode);
                 xmlDoc.documentElement.appendChild(newChildNode);
 
